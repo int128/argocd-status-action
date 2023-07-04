@@ -33,10 +33,22 @@ jobs:
       - run: yarn build
       - run: yarn package
 
-      - name: e2e-test
-        uses: ./
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
-          name: foo
+          path: e2e/fixture-checkout
+      - run: make -C e2e setup-fixture-branch
+      - run: make -C e2e cluster
+      - run: make -C e2e deploy-argocd
+      - run: make -C e2e deploy-app1
+      - uses: ./
+      - run: make -C e2e deploy-app2
+      - uses: ./
+      - run: make -C e2e deploy-app3
+      - uses: ./
+      - run: make -C e2e logs-argocd
+        if: always()
+      - run: make -C e2e delete-fixture-branch
+        if: always()
 
   generate:
     runs-on: ubuntu-latest
