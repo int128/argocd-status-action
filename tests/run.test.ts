@@ -1,3 +1,1 @@
-test.todo('run successfully', async () => {
-  //
-})
+test.todo('run successfully')
