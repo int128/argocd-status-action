@@ -3,7 +3,7 @@ import { run } from './run'
 
 const main = async (): Promise<void> => {
   await run({
-    name: core.getInput('name', { required: true }),
+    sha: core.getInput('sha', { required: true }),
   })
 }
 
