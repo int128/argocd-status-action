@@ -1,3 +1,4 @@
+import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import assert from 'assert'
 
@@ -5,14 +6,9 @@ export const isSettled = (applicationList: ApplicationList) =>
   applicationList.items.every((app) => app.status && app.status.sync && ['Synced'].includes(app.status.sync.status))
 
 export const findByLabel = async (label: string): Promise<ApplicationList> => {
-  const { stdout } = await exec.getExecOutput('kubectl', [
-    'get',
-    'applications',
-    '--output=json',
-    '--namespace=argocd',
-    '-l',
-    label,
-  ])
+  const { stdout } = await core.group(`kubectl get applications`, () =>
+    exec.getExecOutput('kubectl', ['get', 'applications', '--output=json', '--namespace=argocd', '-l', label])
+  )
   return parseApplicationList(stdout)
 }
 
