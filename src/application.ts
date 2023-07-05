@@ -3,7 +3,14 @@ import * as exec from '@actions/exec'
 import assert from 'assert'
 
 export const isSettled = (applicationList: ApplicationList) =>
-  applicationList.items.every((app) => app.status && app.status.sync && ['Synced'].includes(app.status.sync.status))
+  applicationList.items.every(
+    (app) =>
+      app.status &&
+      app.status.sync &&
+      ['Synced'].includes(app.status.sync.status) &&
+      app.status.health &&
+      ['Healthy'].includes(app.status.health.status)
+  )
 
 export const findByLabel = async (label: string): Promise<ApplicationList> => {
   const { stdout } = await core.group(`kubectl get applications`, () =>

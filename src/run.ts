@@ -8,7 +8,9 @@ type Inputs = {
 export const run = async (inputs: Inputs): Promise<void> => {
   for (;;) {
     const applicationList = await application.findByLabel(`github.sha=${inputs.sha}`)
-    core.info(JSON.stringify(applicationList, undefined, 2))
+    for (const app of applicationList.items) {
+      core.info(`${app.metadata.name}: ${app.status?.sync?.status ?? '?'}, ${app.status?.health?.status ?? '?'}`)
+    }
     if (application.isSettled(applicationList)) {
       return
     }
