@@ -1,0 +1,126 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "Application",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"labels\":{\"int128.github.io/e2e-test\":\"fixture\"},\"name\":\"app1\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"app1\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"app1\",\"repoURL\":\"https://github.com/int128/argocd-status-action\",\"targetRevision\":\"e2e-test/6\"},\"syncPolicy\":{\"automated\":{\"prune\":true}}}}\n"
+        },
+        "creationTimestamp": "2023-07-05T01:41:38Z",
+        "finalizers": ["resources-finalizer.argocd.argoproj.io"],
+        "generation": 1,
+        "labels": {
+          "github.sha": "c1b69b5698cad3ebe919ed2abfe85b08e09a56aa",
+          "int128.github.io/e2e-test": "fixture"
+        },
+        "name": "app1",
+        "namespace": "argocd",
+        "resourceVersion": "768",
+        "uid": "2eede252-d92c-45fd-881f-52a28368a539"
+      },
+      "spec": {
+        "destination": {
+          "namespace": "app1",
+          "server": "https://kubernetes.default.svc"
+        },
+        "project": "default",
+        "source": {
+          "path": "app1",
+          "repoURL": "https://github.com/int128/argocd-status-action",
+          "targetRevision": "e2e-test/6"
+        },
+        "syncPolicy": {
+          "automated": {
+            "prune": true
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "Application",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"labels\":{\"int128.github.io/e2e-test\":\"fixture\"},\"name\":\"app2\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"test2-fixture\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"app2\",\"repoURL\":\"https://github.com/int128/argocd-status-action\",\"targetRevision\":\"e2e-test/6\"},\"syncPolicy\":{\"automated\":{\"prune\":true},\"retry\":{\"limit\":1}}}}\n"
+        },
+        "creationTimestamp": "2023-07-05T01:41:38Z",
+        "finalizers": ["resources-finalizer.argocd.argoproj.io"],
+        "generation": 1,
+        "labels": {
+          "github.sha": "c1b69b5698cad3ebe919ed2abfe85b08e09a56aa",
+          "int128.github.io/e2e-test": "fixture"
+        },
+        "name": "app2",
+        "namespace": "argocd",
+        "resourceVersion": "774",
+        "uid": "7504674b-aab8-4583-9a46-1dd11bd5b4f3"
+      },
+      "spec": {
+        "destination": {
+          "namespace": "test2-fixture",
+          "server": "https://kubernetes.default.svc"
+        },
+        "project": "default",
+        "source": {
+          "path": "app2",
+          "repoURL": "https://github.com/int128/argocd-status-action",
+          "targetRevision": "e2e-test/6"
+        },
+        "syncPolicy": {
+          "automated": {
+            "prune": true
+          },
+          "retry": {
+            "limit": 1
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "Application",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"labels\":{\"int128.github.io/e2e-test\":\"fixture\"},\"name\":\"app3\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"test3-fixture\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"app3\",\"repoURL\":\"https://github.com/int128/argocd-status-action\",\"targetRevision\":\"e2e-test/6\"},\"syncPolicy\":{\"automated\":{\"prune\":true},\"retry\":{\"limit\":1}}}}\n"
+        },
+        "creationTimestamp": "2023-07-05T01:41:38Z",
+        "finalizers": ["resources-finalizer.argocd.argoproj.io"],
+        "generation": 1,
+        "labels": {
+          "github.sha": "c1b69b5698cad3ebe919ed2abfe85b08e09a56aa",
+          "int128.github.io/e2e-test": "fixture"
+        },
+        "name": "app3",
+        "namespace": "argocd",
+        "resourceVersion": "776",
+        "uid": "8f6d7e14-51fc-4a11-92c5-6a875f7a7143"
+      },
+      "spec": {
+        "destination": {
+          "namespace": "test3-fixture",
+          "server": "https://kubernetes.default.svc"
+        },
+        "project": "default",
+        "source": {
+          "path": "app3",
+          "repoURL": "https://github.com/int128/argocd-status-action",
+          "targetRevision": "e2e-test/6"
+        },
+        "syncPolicy": {
+          "automated": {
+            "prune": true
+          },
+          "retry": {
+            "limit": 1
+          }
+        }
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}

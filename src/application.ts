@@ -1,7 +1,8 @@
 import * as exec from '@actions/exec'
+import assert from 'assert'
 
 export const isSettled = (applicationList: ApplicationList) =>
-  applicationList.items.every((app) => ['Synced'].includes(app.status.sync.status))
+  applicationList.items.every((app) => app.status && ['Synced'].includes(app.status.sync.status))
 
 export const findByLabel = async (label: string): Promise<ApplicationList> => {
   const { stdout } = await exec.getExecOutput('kubectl', [
@@ -17,9 +18,7 @@ export const findByLabel = async (label: string): Promise<ApplicationList> => {
 
 export const parseApplicationList = (json: string): ApplicationList => {
   const applicationList: unknown = JSON.parse(json)
-  if (!isApplicationList(applicationList)) {
-    throw new Error(`invalid ApplicationList object: ${json}`)
-  }
+  assertIsApplicationList(applicationList)
   return applicationList
 }
 
@@ -27,27 +26,41 @@ type ApplicationList = {
   items: Application[]
 }
 
-const isApplicationList = (x: unknown): x is ApplicationList => Array.isArray(x) && x.every((e) => isApplication(e))
+function assertIsApplicationList(x: unknown): asserts x is ApplicationList {
+  assert(typeof x === 'object')
+  assert(x != null)
+  assert('items' in x)
+  assert(Array.isArray(x.items))
+  for (const item of x.items) {
+    assertIsApplication(item)
+  }
+}
 
 type Application = {
   metadata: ApplicationMetadata
-  status: ApplicationStatus
+  status: ApplicationStatus | undefined
 }
 
-const isApplication = (x: unknown): x is Application =>
-  typeof x === 'object' &&
-  x != null &&
-  'metadata' in x &&
-  isApplicationMetadata(x.metadata) &&
-  'status' in x &&
-  isApplicationStatus(x.status)
+function assertIsApplication(x: unknown): asserts x is Application {
+  assert(typeof x === 'object')
+  assert(x != null)
+  assert('metadata' in x)
+  assertIsApplicationMetadata(x.metadata)
+  if ('status' in x) {
+    assertIsApplicationStatus(x.status)
+  }
+}
 
 type ApplicationMetadata = {
   name: string
 }
 
-const isApplicationMetadata = (x: unknown): x is ApplicationMetadata =>
-  typeof x === 'object' && x != null && 'name' in x && typeof x.name === 'string'
+function assertIsApplicationMetadata(x: unknown): asserts x is ApplicationMetadata {
+  assert(typeof x === 'object')
+  assert(x != null)
+  assert('name' in x)
+  assert(typeof x.name === 'string')
+}
 
 type ApplicationStatus = {
   sync: {
@@ -59,10 +72,11 @@ type ApplicationStatus = {
   }
 }
 
-const isApplicationStatus = (x: unknown): x is ApplicationStatus =>
-  typeof x === 'object' &&
-  x != null &&
-  'sync' in x &&
-  typeof x.sync === 'object' &&
-  'health' in x &&
-  typeof x.health === 'object'
+function assertIsApplicationStatus(x: unknown): asserts x is ApplicationStatus {
+  assert(typeof x === 'object')
+  assert(x != null)
+  assert('sync' in x)
+  assert(typeof x.sync === 'object')
+  assert('health' in x)
+  assert(typeof x.health === 'object')
+}
