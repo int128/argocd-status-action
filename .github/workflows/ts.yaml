@@ -40,12 +40,8 @@ jobs:
           path: e2e/fixture-checkout
       - run: make -C e2e setup-fixture-branch
       - run: make -C e2e cluster
+      - run: make -C e2e set-github-env-kubeconfig
       - run: make -C e2e deploy-argocd
-      - run: make -C e2e deploy-app1
-      - uses: ./
-      - run: make -C e2e deploy-app2
-      - uses: ./
-      - run: make -C e2e deploy-app3
       - uses: ./
       - run: make -C e2e logs-argocd
         if: always()

@@ -13,6 +13,9 @@ cluster: $(KUBECONFIG)
 $(KUBECONFIG):
 	kind create cluster --name $(CLUSTER_NAME)
 
+set-github-env-kubeconfig:
+	echo "KUBECONFIG=$(abspath $(KUBECONFIG))" >> "$(GITHUB_ENV)"
+
 delete-cluster:
 	kind delete cluster --name $(CLUSTER_NAME)
 	-rm $(KUBECONFIG)
