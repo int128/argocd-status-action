@@ -2,7 +2,7 @@ import * as exec from '@actions/exec'
 import assert from 'assert'
 
 export const isSettled = (applicationList: ApplicationList) =>
-  applicationList.items.every((app) => app.status && ['Synced'].includes(app.status.sync.status))
+  applicationList.items.every((app) => app.status && app.status.sync && ['Synced'].includes(app.status.sync.status))
 
 export const findByLabel = async (label: string): Promise<ApplicationList> => {
   const { stdout } = await exec.getExecOutput('kubectl', [
@@ -38,7 +38,7 @@ function assertIsApplicationList(x: unknown): asserts x is ApplicationList {
 
 type Application = {
   metadata: ApplicationMetadata
-  status: ApplicationStatus | undefined
+  status?: ApplicationStatus
 }
 
 function assertIsApplication(x: unknown): asserts x is Application {
@@ -63,11 +63,11 @@ function assertIsApplicationMetadata(x: unknown): asserts x is ApplicationMetada
 }
 
 type ApplicationStatus = {
-  sync: {
+  sync?: {
     revision: string
     status: string
   }
-  health: {
+  health?: {
     status: string
   }
 }
@@ -75,8 +75,10 @@ type ApplicationStatus = {
 function assertIsApplicationStatus(x: unknown): asserts x is ApplicationStatus {
   assert(typeof x === 'object')
   assert(x != null)
-  assert('sync' in x)
-  assert(typeof x.sync === 'object')
-  assert('health' in x)
-  assert(typeof x.health === 'object')
+  if ('sync' in x) {
+    assert(typeof x.sync === 'object')
+  }
+  if ('health' in x) {
+    assert(typeof x.health === 'object')
+  }
 }
