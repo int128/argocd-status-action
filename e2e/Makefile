@@ -22,6 +22,7 @@ delete-cluster:
 
 deploy-argocd: cluster
 	kustomize build argocd | kubectl apply -f -
+	kubectl -n argocd rollout status statefulsets argocd-application-controller
 	kustomize build applications | sed -e "s|FIXTURE_BASE_BRANCH|$(FIXTURE_BASE_BRANCH)|g" | kubectl apply -f -
 	kubectl -n argocd label application app1 'github.sha=$(GITHUB_SHA)'
 	kubectl -n argocd label application app2 'github.sha=$(GITHUB_SHA)'
