@@ -7,9 +7,9 @@ export const isSettled = (applicationList: ApplicationList) =>
     (app) =>
       app.status &&
       app.status.sync &&
-      ['Synced'].includes(app.status.sync.status) &&
+      [SyncStatusCode.Synced].includes(app.status.sync.status) &&
       app.status.health &&
-      ['Healthy'].includes(app.status.health.status)
+      [HealthStatusCode.Healthy, HealthStatusCode.Degraded, HealthStatusCode.Missing].includes(app.status.health.status)
   )
 
 export const findByLabel = async (label: string): Promise<ApplicationList> => {
@@ -46,7 +46,7 @@ type Application = {
 
 function assertIsApplication(x: unknown): asserts x is Application {
   assert(typeof x === 'object')
-  assert(x != null)
+  assert(x !== null)
   assert('metadata' in x)
   assertIsApplicationMetadata(x.metadata)
   if ('status' in x) {
@@ -67,11 +67,10 @@ function assertIsApplicationMetadata(x: unknown): asserts x is ApplicationMetada
 
 type ApplicationStatus = {
   sync?: {
-    revision: string
-    status: string
+    status: SyncStatusCode
   }
   health?: {
-    status: string
+    status: HealthStatusCode
   }
 }
 
@@ -80,8 +79,31 @@ function assertIsApplicationStatus(x: unknown): asserts x is ApplicationStatus {
   assert(x != null)
   if ('sync' in x) {
     assert(typeof x.sync === 'object')
+    assert(x.sync !== null)
+    assert('status' in x.sync)
+    assert(typeof x.sync.status === 'string')
   }
   if ('health' in x) {
     assert(typeof x.health === 'object')
+    assert(x.health !== null)
+    assert('status' in x.health)
+    assert(typeof x.health.status === 'string')
   }
+}
+
+//https://github.com/argoproj/argo-cd/blob/v2.7.6/pkg/apis/application/v1alpha1/types.go#L1333
+enum SyncStatusCode {
+  Unknown = 'Unknown',
+  Synced = 'Synced',
+  OutOfSync = 'OutOfSync',
+}
+
+// https://github.com/argoproj/gitops-engine/blob/v0.7.3/pkg/health/health.go
+enum HealthStatusCode {
+  Unknown = 'Unknown',
+  Progressing = 'Progressing',
+  Healthy = 'Healthy',
+  Suspended = 'Suspended',
+  Degraded = 'Degraded',
+  Missing = 'Missing',
 }

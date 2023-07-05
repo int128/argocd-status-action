@@ -1,0 +1,442 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "Application",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"labels\":{\"int128.github.io/e2e-test\":\"fixture\"},\"name\":\"app1\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"app1\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"app1\",\"repoURL\":\"https://github.com/int128/argocd-status-action\",\"targetRevision\":\"e2e-test/12\"},\"syncPolicy\":{\"automated\":{\"prune\":true}}}}\n"
+        },
+        "creationTimestamp": "2023-07-05T07:34:05Z",
+        "finalizers": ["resources-finalizer.argocd.argoproj.io"],
+        "generation": 9,
+        "labels": {
+          "github.sha": "d058e3aa241ec11f3bb4cb5868ed6f6117c3c797",
+          "int128.github.io/e2e-test": "fixture"
+        },
+        "name": "app1",
+        "namespace": "argocd",
+        "resourceVersion": "892",
+        "uid": "8b1e19e3-b410-486d-891e-0df6eac0c34c"
+      },
+      "spec": {
+        "destination": {
+          "namespace": "app1",
+          "server": "https://kubernetes.default.svc"
+        },
+        "project": "default",
+        "source": {
+          "path": "app1",
+          "repoURL": "https://github.com/int128/argocd-status-action",
+          "targetRevision": "e2e-test/12"
+        },
+        "syncPolicy": {
+          "automated": {
+            "prune": true
+          }
+        }
+      },
+      "status": {
+        "health": {
+          "status": "Healthy"
+        },
+        "history": [
+          {
+            "deployStartedAt": "2023-07-05T07:34:06Z",
+            "deployedAt": "2023-07-05T07:34:07Z",
+            "id": 0,
+            "revision": "74851c512e292b334d45f018c207675819a5ba36",
+            "source": {
+              "path": "app1",
+              "repoURL": "https://github.com/int128/argocd-status-action",
+              "targetRevision": "e2e-test/12"
+            }
+          }
+        ],
+        "operationState": {
+          "finishedAt": "2023-07-05T07:34:07Z",
+          "message": "successfully synced (all tasks run)",
+          "operation": {
+            "initiatedBy": {
+              "automated": true
+            },
+            "retry": {
+              "limit": 5
+            },
+            "sync": {
+              "prune": true,
+              "revision": "74851c512e292b334d45f018c207675819a5ba36"
+            }
+          },
+          "phase": "Succeeded",
+          "startedAt": "2023-07-05T07:34:06Z",
+          "syncResult": {
+            "resources": [
+              {
+                "group": "",
+                "hookPhase": "Running",
+                "kind": "Namespace",
+                "message": "namespace/app1 created",
+                "name": "app1",
+                "namespace": "app1",
+                "status": "Synced",
+                "syncPhase": "Sync",
+                "version": "v1"
+              },
+              {
+                "group": "apps",
+                "hookPhase": "Running",
+                "kind": "Deployment",
+                "message": "deployment.apps/echoserver created",
+                "name": "echoserver",
+                "namespace": "app1",
+                "status": "Synced",
+                "syncPhase": "Sync",
+                "version": "v1"
+              }
+            ],
+            "revision": "74851c512e292b334d45f018c207675819a5ba36",
+            "source": {
+              "path": "app1",
+              "repoURL": "https://github.com/int128/argocd-status-action",
+              "targetRevision": "e2e-test/12"
+            }
+          }
+        },
+        "reconciledAt": "2023-07-05T07:34:17Z",
+        "resources": [
+          {
+            "kind": "Namespace",
+            "name": "app1",
+            "status": "Synced",
+            "version": "v1"
+          },
+          {
+            "group": "apps",
+            "health": {
+              "status": "Healthy"
+            },
+            "kind": "Deployment",
+            "name": "echoserver",
+            "namespace": "app1",
+            "status": "Synced",
+            "version": "v1"
+          }
+        ],
+        "sourceType": "Kustomize",
+        "summary": {
+          "images": ["gcr.io/google_containers/echoserver:1.8"]
+        },
+        "sync": {
+          "comparedTo": {
+            "destination": {
+              "namespace": "app1",
+              "server": "https://kubernetes.default.svc"
+            },
+            "source": {
+              "path": "app1",
+              "repoURL": "https://github.com/int128/argocd-status-action",
+              "targetRevision": "e2e-test/12"
+            }
+          },
+          "revision": "74851c512e292b334d45f018c207675819a5ba36",
+          "status": "Synced"
+        }
+      }
+    },
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "Application",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"labels\":{\"int128.github.io/e2e-test\":\"fixture\"},\"name\":\"app2\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"test2-fixture\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"app2\",\"repoURL\":\"https://github.com/int128/argocd-status-action\",\"targetRevision\":\"e2e-test/12\"},\"syncPolicy\":{\"automated\":{\"prune\":true},\"retry\":{\"limit\":1}}}}\n"
+        },
+        "creationTimestamp": "2023-07-05T07:34:05Z",
+        "finalizers": ["resources-finalizer.argocd.argoproj.io"],
+        "generation": 10,
+        "labels": {
+          "github.sha": "d058e3aa241ec11f3bb4cb5868ed6f6117c3c797",
+          "int128.github.io/e2e-test": "fixture"
+        },
+        "name": "app2",
+        "namespace": "argocd",
+        "resourceVersion": "879",
+        "uid": "d3215e86-c070-4c40-b5a9-faad369dbef4"
+      },
+      "spec": {
+        "destination": {
+          "namespace": "test2-fixture",
+          "server": "https://kubernetes.default.svc"
+        },
+        "project": "default",
+        "source": {
+          "path": "app2",
+          "repoURL": "https://github.com/int128/argocd-status-action",
+          "targetRevision": "e2e-test/12"
+        },
+        "syncPolicy": {
+          "automated": {
+            "prune": true
+          },
+          "retry": {
+            "limit": 1
+          }
+        }
+      },
+      "status": {
+        "health": {
+          "status": "Healthy"
+        },
+        "history": [
+          {
+            "deployStartedAt": "2023-07-05T07:34:06Z",
+            "deployedAt": "2023-07-05T07:34:07Z",
+            "id": 0,
+            "revision": "74851c512e292b334d45f018c207675819a5ba36",
+            "source": {
+              "path": "app2",
+              "repoURL": "https://github.com/int128/argocd-status-action",
+              "targetRevision": "e2e-test/12"
+            }
+          }
+        ],
+        "operationState": {
+          "finishedAt": "2023-07-05T07:34:07Z",
+          "message": "successfully synced (all tasks run)",
+          "operation": {
+            "initiatedBy": {
+              "automated": true
+            },
+            "retry": {
+              "limit": 1
+            },
+            "sync": {
+              "prune": true,
+              "revision": "74851c512e292b334d45f018c207675819a5ba36"
+            }
+          },
+          "phase": "Succeeded",
+          "startedAt": "2023-07-05T07:34:06Z",
+          "syncResult": {
+            "resources": [
+              {
+                "group": "",
+                "hookPhase": "Running",
+                "kind": "Namespace",
+                "message": "namespace/app2 created",
+                "name": "app2",
+                "namespace": "test2-fixture",
+                "status": "Synced",
+                "syncPhase": "Sync",
+                "version": "v1"
+              },
+              {
+                "group": "apps",
+                "hookPhase": "Running",
+                "kind": "Deployment",
+                "message": "deployment.apps/echoserver created",
+                "name": "echoserver",
+                "namespace": "app2",
+                "status": "Synced",
+                "syncPhase": "Sync",
+                "version": "v1"
+              }
+            ],
+            "revision": "74851c512e292b334d45f018c207675819a5ba36",
+            "source": {
+              "path": "app2",
+              "repoURL": "https://github.com/int128/argocd-status-action",
+              "targetRevision": "e2e-test/12"
+            }
+          }
+        },
+        "reconciledAt": "2023-07-05T07:34:07Z",
+        "resources": [
+          {
+            "kind": "Namespace",
+            "name": "app2",
+            "status": "Synced",
+            "version": "v1"
+          },
+          {
+            "group": "apps",
+            "health": {
+              "status": "Healthy"
+            },
+            "kind": "Deployment",
+            "name": "echoserver",
+            "namespace": "app2",
+            "status": "Synced",
+            "version": "v1"
+          }
+        ],
+        "sourceType": "Kustomize",
+        "summary": {
+          "images": ["gcr.io/google_containers/echoserver:1.8"]
+        },
+        "sync": {
+          "comparedTo": {
+            "destination": {
+              "namespace": "test2-fixture",
+              "server": "https://kubernetes.default.svc"
+            },
+            "source": {
+              "path": "app2",
+              "repoURL": "https://github.com/int128/argocd-status-action",
+              "targetRevision": "e2e-test/12"
+            }
+          },
+          "revision": "74851c512e292b334d45f018c207675819a5ba36",
+          "status": "Synced"
+        }
+      }
+    },
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "Application",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"labels\":{\"int128.github.io/e2e-test\":\"fixture\"},\"name\":\"app3\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"test3-fixture\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"app3\",\"repoURL\":\"https://github.com/int128/argocd-status-action\",\"targetRevision\":\"e2e-test/12\"},\"syncPolicy\":{\"automated\":{\"prune\":true},\"retry\":{\"limit\":1}}}}\n"
+        },
+        "creationTimestamp": "2023-07-05T07:34:05Z",
+        "finalizers": ["resources-finalizer.argocd.argoproj.io"],
+        "generation": 8,
+        "labels": {
+          "github.sha": "d058e3aa241ec11f3bb4cb5868ed6f6117c3c797",
+          "int128.github.io/e2e-test": "fixture"
+        },
+        "name": "app3",
+        "namespace": "argocd",
+        "resourceVersion": "856",
+        "uid": "d6ff6468-24a6-4695-898f-b90b0387be37"
+      },
+      "spec": {
+        "destination": {
+          "namespace": "test3-fixture",
+          "server": "https://kubernetes.default.svc"
+        },
+        "project": "default",
+        "source": {
+          "path": "app3",
+          "repoURL": "https://github.com/int128/argocd-status-action",
+          "targetRevision": "e2e-test/12"
+        },
+        "syncPolicy": {
+          "automated": {
+            "prune": true
+          },
+          "retry": {
+            "limit": 1
+          }
+        }
+      },
+      "status": {
+        "health": {
+          "status": "Healthy"
+        },
+        "history": [
+          {
+            "deployStartedAt": "2023-07-05T07:34:07Z",
+            "deployedAt": "2023-07-05T07:34:07Z",
+            "id": 0,
+            "revision": "74851c512e292b334d45f018c207675819a5ba36",
+            "source": {
+              "path": "app3",
+              "repoURL": "https://github.com/int128/argocd-status-action",
+              "targetRevision": "e2e-test/12"
+            }
+          }
+        ],
+        "operationState": {
+          "finishedAt": "2023-07-05T07:34:07Z",
+          "message": "successfully synced (all tasks run)",
+          "operation": {
+            "initiatedBy": {
+              "automated": true
+            },
+            "retry": {
+              "limit": 1
+            },
+            "sync": {
+              "prune": true,
+              "revision": "74851c512e292b334d45f018c207675819a5ba36"
+            }
+          },
+          "phase": "Succeeded",
+          "startedAt": "2023-07-05T07:34:07Z",
+          "syncResult": {
+            "resources": [
+              {
+                "group": "",
+                "hookPhase": "Running",
+                "kind": "Namespace",
+                "message": "namespace/app3 created",
+                "name": "app3",
+                "namespace": "test3-fixture",
+                "status": "Synced",
+                "syncPhase": "Sync",
+                "version": "v1"
+              },
+              {
+                "group": "batch",
+                "hookPhase": "Running",
+                "kind": "CronJob",
+                "message": "cronjob.batch/echoserver created",
+                "name": "echoserver",
+                "namespace": "app3",
+                "status": "Synced",
+                "syncPhase": "Sync",
+                "version": "v1"
+              }
+            ],
+            "revision": "74851c512e292b334d45f018c207675819a5ba36",
+            "source": {
+              "path": "app3",
+              "repoURL": "https://github.com/int128/argocd-status-action",
+              "targetRevision": "e2e-test/12"
+            }
+          }
+        },
+        "reconciledAt": "2023-07-05T07:34:07Z",
+        "resources": [
+          {
+            "kind": "Namespace",
+            "name": "app3",
+            "status": "Synced",
+            "version": "v1"
+          },
+          {
+            "group": "batch",
+            "kind": "CronJob",
+            "name": "echoserver",
+            "namespace": "app3",
+            "status": "Synced",
+            "version": "v1"
+          }
+        ],
+        "sourceType": "Kustomize",
+        "summary": {},
+        "sync": {
+          "comparedTo": {
+            "destination": {
+              "namespace": "test3-fixture",
+              "server": "https://kubernetes.default.svc"
+            },
+            "source": {
+              "path": "app3",
+              "repoURL": "https://github.com/int128/argocd-status-action",
+              "targetRevision": "e2e-test/12"
+            }
+          },
+          "revision": "74851c512e292b334d45f018c207675819a5ba36",
+          "status": "Synced"
+        }
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}
