@@ -9,12 +9,14 @@ export const isSettled = (applicationList: ApplicationList) =>
       app.status.sync &&
       [SyncStatusCode.Synced].includes(app.status.sync.status) &&
       app.status.health &&
-      [HealthStatusCode.Healthy, HealthStatusCode.Degraded, HealthStatusCode.Missing].includes(app.status.health.status)
+      [HealthStatusCode.Healthy, HealthStatusCode.Degraded, HealthStatusCode.Missing].includes(
+        app.status.health.status,
+      ),
   )
 
 export const findByLabel = async (label: string): Promise<ApplicationList> => {
   const { stdout } = await core.group(`kubectl get applications`, () =>
-    exec.getExecOutput('kubectl', ['get', 'applications', '--output=json', '--namespace=argocd', '-l', label])
+    exec.getExecOutput('kubectl', ['get', 'applications', '--output=json', '--namespace=argocd', '-l', label]),
   )
   return parseApplicationList(stdout)
 }
