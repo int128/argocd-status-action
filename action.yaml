@@ -1,5 +1,5 @@
-name: typescript-action
-description: Template of TypeScript Action
+name: argocd-status-action
+description: Wait for Argo CD in GitHub Actions
 
 inputs:
   sha:
