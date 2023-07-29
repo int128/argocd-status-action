@@ -27,7 +27,7 @@ export const parseApplicationList = (json: string): ApplicationList => {
   return applicationList
 }
 
-type ApplicationList = {
+export type ApplicationList = {
   items: Application[]
 }
 
