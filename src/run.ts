@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import * as application from './application'
+import * as application from './application.js'
 
 type Inputs = {
   sha: string

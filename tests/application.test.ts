@@ -1,5 +1,5 @@
 import * as fs from 'fs'
-import { isSettled, parseApplicationList } from '../src/application'
+import { isSettled, parseApplicationList } from '../src/application.js'
 
 describe('isSettled', () => {
   test('without-status', () => {
